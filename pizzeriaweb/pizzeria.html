@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pizzeria Fuoco Lento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#FBFAF6; --surface:#F1EEE4; --ink:#2A2320; --muted:#6B625B;
+  --green:#17382B; --on-green:#FBFAF6; --tomato:#D8352A; --on-tomato:#fff; --line:#DDD8CA;
+  --display:'Bricolage Grotesque','Arial Black',system-ui,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#17120F;--surface:#241D19;--ink:#F3EEE3;--muted:#A89F94;--green:#0F2A20;--line:#3A312B;--tomato:#E8493D;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#17120F;--surface:#241D19;--ink:#F3EEE3;--muted:#A89F94;--green:#0F2A20;--line:#3A312B;--tomato:#E8493D;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;font-size:17px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;max-width:1080px;margin:0 auto}
+.logo{font-family:var(--display);font-weight:800;font-size:1.25rem;text-decoration:none}
+nav a{margin-left:20px;text-decoration:none;font-weight:500}
+nav a:hover{color:var(--tomato)}
+.hero{background:var(--green);color:var(--on-green)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:56px;padding-bottom:64px}
+.hero h1{font-weight:800;font-size:clamp(2.6rem,7vw,5.2rem);letter-spacing:-.03em}
+.hero p{max-width:34ch;font-size:1.15rem;margin:22px 0 30px;opacity:.9}
+.btn{display:inline-block;background:var(--tomato);color:var(--on-tomato);padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;border:0;font:inherit;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border:2px solid currentColor;margin-left:10px}
+.pizza{width:100%;max-width:400px;aspect-ratio:1;border-radius:50%;margin:0 auto;position:relative;
+  background:radial-gradient(circle at 50% 50%,#C8372B 0 58%,#E9B96A 59% 66%,#B9772F 67% 100%);
+  box-shadow:0 0 0 10px rgba(255,255,255,.06)}
+.pizza i{position:absolute;border-radius:50%;background:#F7F1DE;width:17%;aspect-ratio:1}
+.pizza b{position:absolute;width:7%;aspect-ratio:1;border-radius:50% 0;background:#3F8F4E;transform:rotate(30deg)}
+section{padding:72px 0}
+section h2{font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.02em;margin-bottom:12px}
+.lead{color:var(--muted);max-width:52ch;margin:0 0 30px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.tabs button{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:9px 18px;border-radius:999px;font:inherit;font-weight:500;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.menu{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.menu h3{font-size:1.25rem}
+.menu p{grid-column:1;margin:0;color:var(--muted);font-size:.95rem}
+.price{font-family:var(--display);font-weight:800;font-size:1.15rem}
+.add{grid-column:2;grid-row:2;justify-self:end;border:1.5px solid var(--tomato);color:var(--tomato);background:transparent;border-radius:999px;padding:4px 14px;font:inherit;font-weight:600;cursor:pointer}
+.add:hover{background:var(--tomato);color:var(--on-tomato)}
+.about{background:var(--surface)}
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.facts{display:grid;gap:18px}
+.facts div{border-left:4px solid var(--tomato);padding-left:16px}
+.facts strong{display:block;font-family:var(--display);font-size:1.2rem}
+.book{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields label{display:grid;gap:6px;font-weight:500;font-size:.95rem}
+.fields .full{grid-column:1/-1}
+input,select{font:inherit;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+.hours{width:100%;border-collapse:collapse}
+.hours td{padding:9px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:600}
+#msg{margin-top:14px;font-weight:600;color:var(--green)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #msg{color:#7FD39B}}
+footer{background:var(--green);color:var(--on-green);padding:34px 0;text-align:center;font-size:.95rem}
+#cart{position:fixed;left:0;right:0;bottom:0;padding:12px 22px calc(12px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);display:none;justify-content:space-between;align-items:center;gap:14px;z-index:20}
+#cart.on{display:flex}
+@media (max-width:760px){
+  .hero .wrap,.about .wrap,.book{grid-template-columns:1fr}
+  .menu{grid-template-columns:1fr}
+  .pizza{max-width:280px}
+  nav a{margin-left:12px;font-size:.95rem}
+  .fields{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){.pizza{animation:spin 90s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#">Fuoco Lento</a>
+  <nav><a href="#menu">Menù</a><a href="#storia">Storia</a><a href="#prenota">Prenota</a></nav>
+</header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>Impasto di 48 ore. Forno a legna.</h1>
+    <p>Pizze napoletane cotte in 90 secondi a 450 °C, con ingredienti di piccoli produttori toscani e campani.</p>
+    <a class="btn" href="#menu">Guarda il menù</a><a class="btn ghost" href="#prenota">Prenota un tavolo</a>
+  </div>
+  <div class="pizza" role="img" aria-label="Illustrazione di una pizza Margherita">
+    <i style="top:18%;left:42%"></i><i style="top:40%;left:20%"></i><i style="top:42%;left:62%"></i><i style="top:64%;left:40%"></i><i style="top:22%;left:68%;width:12%"></i><i style="top:62%;left:18%;width:12%"></i>
+    <b style="top:30%;left:30%"></b><b style="top:52%;left:46%"></b><b style="top:70%;left:64%"></b><b style="top:26%;left:56%"></b>
+  </div>
+</div></div>
+
+<section id="menu"><div class="wrap">
+  <h2>Il menù</h2>
+  <p class="lead">Tocca “Aggiungi” per comporre il tuo ordine da asporto.</p>
+  <div class="tabs" id="tabs"></div>
+  <ul class="menu" id="list"></ul>
+</div></section>
+
+<section class="about" id="storia"><div class="wrap">
+  <div>
+    <h2>Poche cose, fatte con calma</h2>
+    <p>Dal 1998 lavoriamo la stessa farina macinata a pietra e lo stesso lievito madre. L’impasto riposa due giorni, il forno si accende alle quattro del pomeriggio e la brace non si spegne finché c’è un tavolo da servire.</p>
+    <p>Il menù cambia con le stagioni: quando i pomodori finiscono, finisce anche la Margherita estiva.</p>
+  </div>
+  <div class="facts">
+    <div><strong>48 ore</strong>di lievitazione naturale</div>
+    <div><strong>90 secondi</strong>di cottura nel forno a legna di faggio</div>
+    <div><strong>12 km</strong>la distanza massima dei nostri fornitori di verdure</div>
+  </div>
+</div></section>
+
+<section id="prenota"><div class="wrap book">
+  <div>
+    <h2>Prenota un tavolo</h2>
+    <p class="lead">Rispondiamo entro un’ora. Per gruppi oltre 8 persone chiamaci.</p>
+    <div class="fields">
+      <label class="full">Nome<input id="n" autocomplete="name"></label>
+      <label>Data<input id="d" type="date"></label>
+      <label>Orario<select id="t"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option></select></label>
+      <label class="full">Persone<select id="p"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>
+      <div class="full"><button class="btn" id="send" type="button">Invia richiesta</button><div id="msg" role="status"></div></div>
+    </div>
+  </div>
+  <div>
+    <h2>Orari</h2>
+    <table class="hours" style="margin-top:14px">
+      <tr><td>Martedì – Giovedì</td><td>18:30 – 23:00</td></tr>
+      <tr><td>Venerdì – Sabato</td><td>18:30 – 00:00</td></tr>
+      <tr><td>Domenica</td><td>12:00 – 15:00, 18:30 – 23:00</td></tr>
+      <tr><td>Lunedì</td><td>Chiuso</td></tr>
+    </table>
+    <p style="margin-top:22px">Via del Forno 12, 55100 Lucca<br>Telefono: 0583 000 000<br>ciao@fuocolento.example</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Pizzeria Fuoco Lento. Tutti i diritti riservati.</div></footer>
+
+<div id="cart"><span id="sum"></span><button class="btn" id="order" type="button">Invia ordine</button></div>
+
+<script>
+const MENU=[
+ {c:'Rosse',n:'Marinara',d:'Pomodoro San Marzano, aglio, origano, olio extravergine',p:6},
+ {c:'Rosse',n:'Margherita',d:'Pomodoro, fior di latte, basilico, olio extravergine',p:8},
+ {c:'Rosse',n:'Diavola',d:'Pomodoro, mozzarella, salame piccante, peperoncino',p:10},
+ {c:'Rosse',n:'Napoli',d:'Pomodoro, mozzarella, acciughe di Cetara, capperi',p:9.5},
+ {c:'Bianche',n:'Quattro formaggi',d:'Fior di latte, gorgonzola, pecorino, parmigiano',p:11},
+ {c:'Bianche',n:'Lardo e pere',d:'Fior di latte, lardo di Colonnata, pere, noci',p:12},
+ {c:'Bianche',n:'Zucca e salsiccia',d:'Crema di zucca, salsiccia, scamorza affumicata',p:11.5},
+ {c:'Bianche',n:'Ortolana',d:'Fior di latte, zucchine, melanzane, peperoni grigliati',p:10},
+ {c:'Da bere',n:'Birra artigianale',d:'Bionda o ambrata, 33 cl',p:5},
+ {c:'Da bere',n:'Vino della casa',d:'Calice di rosso o bianco',p:4.5},
+ {c:'Da bere',n:'Acqua minerale',d:'Naturale o frizzante, 75 cl',p:2.5},
+ {c:'Da bere',n:'Limonata fresca',d:'Limoni, zucchero di canna, menta',p:4}
+];
+const cats=['Tutte',...new Set(MENU.map(m=>m.c))];
+let cur='Tutte',cart={};
+const eur=v=>v.toFixed(2).replace('.',',')+' €';
+const $=id=>document.getElementById(id);
+function renderTabs(){
+  $('tabs').innerHTML='';
+  cats.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.setAttribute('aria-pressed',c===cur);b.onclick=()=>{cur=c;renderTabs();renderList()};$('tabs').appendChild(b)});
+}
+function renderList(){
+  $('list').innerHTML='';
+  MENU.forEach((m,i)=>{
+    if(cur!=='Tutte'&&m.c!==cur)return;
+    const li=document.createElement('li');
+    li.innerHTML='<h3></h3><span class="price"></span><p></p><button class="add" type="button">Aggiungi</button>';
+    li.querySelector('h3').textContent=m.n;
+    li.querySelector('.price').textContent=eur(m.p);
+    li.querySelector('p').textContent=m.d;
+    li.querySelector('.add').onclick=()=>{cart[i]=(cart[i]||0)+1;renderCart()};
+    $('list').appendChild(li);
+  });
+}
+function renderCart(){
+  let q=0,t=0;for(const i in cart){q+=cart[i];t+=cart[i]*MENU[i].p}
+  $('cart').classList.toggle('on',q>0);
+  $('sum').textContent=q+(q===1?' articolo':' articoli')+' · '+eur(t);
+}
+$('order').onclick=()=>{cart={};renderCart();$('msg').textContent='Ordine ricevuto. Ti avvisiamo quando è pronto per il ritiro.'};
+$('send').onclick=()=>{
+  const n=$('n').value.trim(),d=$('d').value;
+  if(!n||!d){$('msg').textContent='Inserisci nome e data per inviare la richiesta.';return}
+  $('msg').textContent='Grazie '+n+'! Abbiamo ricevuto la richiesta per '+$('p').value+' persone alle '+$('t').value+'.';
+};
+renderTabs();renderList();
+</script>
+</body>
+</html>
